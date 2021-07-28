@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
-
+import Timeline from './Timeline'
+import '../styles/Card.css'
 import axios from 'axios'
 
 const Card = ({code, info}) => {
@@ -17,17 +18,18 @@ const Card = ({code, info}) => {
 
 
     return (
-        <div className="card">
+        <div className="container card">
             <h2><b>{coin.name} ({info.coin}):</b></h2>
             <h3>
                 Algorithm: {info.algorithm}<br/>
-                Hashrate: {info.network_hashrate === -1 ? coin.network_hashrate : info.network_hashrate}<br/>
+                Hashrate: {info.network_hashrate === -1 ? coin.network_hashrate : info.network_hashrate} H/S<br/>
                 Block Time: {coin.time}<br/>
                 Block Reward: {coin.reward}
             </h3>
             <h3>
                 Price: ${info.price === -1 ? coin.price : info.price}
             </h3>
+            <Timeline coin={info.coin} algorithm={info.algorithm}/>
             <p>
                 <span><b>Pools: </b></span>
                 {pools.map((pool, i) => {

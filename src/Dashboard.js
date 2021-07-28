@@ -5,6 +5,7 @@ import axios from 'axios'
 const Dashboard = () => {
     const [codes, setCodes] = useState([])
     const [infos, setInfos] = useState([])
+    const [retrieved, setRetrieved] = useState(false)
     useEffect(async () => {
         const url = 'https://crypto-energy-api.herokuapp.com/coins';
         const response = await axios.get(url);
@@ -15,19 +16,20 @@ const Dashboard = () => {
         }
         const url2 = 'https://api.minerstat.com/v2/coins?list=' + list;
         const response2 = await axios.get(url2);
-        console.log(response2.data)
-        console.log(c)
         setCodes(c)
         setInfos(response2.data)
+        setRetrieved(true)
     }, [])
 
-
-    return (
-        <div>
-            <h1>The Cryptocurrency Energy Consumption Index</h1>
-
-            <p>
-                {infos.map((info, i) => {
+    const renderCards = () => {
+        if (!retrieved) {
+            return (
+                <h2>Loading...</h2>
+            )
+        }
+        else {
+            return (
+                infos.map((info, i) => {
                     function isCorrect(myapi) {
                         return myapi.code === info.coin
                     }
@@ -44,11 +46,25 @@ const Dashboard = () => {
                             <span></span>
                         )
                     }
-                    
                     return (
-                        <Card key={i} code={info.coin} info={info}/>
+                        <div>
+                            <Card key={i} code={info.coin} info={info}/>
+                            <br />
+                            <br />
+                        </div>
                     )
-                })}
+                })            )
+        }
+
+    }
+
+    return (
+        <div>
+            <br/>
+            <h1 class="text-center">The Cryptocurrency Energy Consumption Index</h1>
+            <br/>
+            <p>
+                {renderCards()}
             </p>
         </div>
     )
