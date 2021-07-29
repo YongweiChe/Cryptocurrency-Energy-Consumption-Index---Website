@@ -62,12 +62,12 @@ const Card = ({code, info, electricity}) => {
             <p>
                 <span><b>Pools: </b></span>
                 <DisplayPools pools={pools} showAll={expandPool}/>
-                <button onClick={handlePoolClick} class="btn">{expandPool ? 'show less' : 'show more'}</button>
+                <button onClick={handlePoolClick} class="btn btn-sm btn-outline-info">{expandPool ? 'show less' : 'show more'}</button>
             </p>
             <p>
                 <span><b>Miners: </b></span>
                 <DisplayMiners miners={miners} showAll={expandMiner}/>
-                <button onClick={handleMinerClick} class="btn">{expandMiner ? 'show less' : 'show more'}</button>
+                <button onClick={handleMinerClick} class="btn btn-sm btn-outline-info">{expandMiner ? 'show less' : 'show more'}</button>
             </p>
             
         </div>

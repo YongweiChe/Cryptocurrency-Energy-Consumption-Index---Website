@@ -18,7 +18,6 @@ const Single = ({code, electricity}) => {
 
     const renderCard = () => {
         if (fail) {
-            console.log("HERE")
             return (
                 <div>
                 <h2>That coin is not in our database :(</h2>
@@ -33,7 +32,6 @@ const Single = ({code, electricity}) => {
             )
         }
         else {
-            console.log("AAAA")
             return (
                 <Card code={code} info={info} electricity={electricity}/>
             )

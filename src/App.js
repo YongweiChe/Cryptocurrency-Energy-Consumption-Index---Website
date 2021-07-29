@@ -40,7 +40,6 @@ const App = () => {
     }
 
     const handleSubmit = e => {
-        console.log("here")
         e.preventDefault();
         setAlert(true)
     }

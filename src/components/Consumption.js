@@ -13,7 +13,27 @@ const Consumption = (props) => {
         }
         let profit = props.price *  parsedRew / timeSec;
         let upperEC = profit * 3.6 * 1000000 / props.electricity;
-        return numberWithCommas(Math.round(upperEC))
+        return Math.round(upperEC)
+    }
+
+
+    const calcLower = () => {
+        if (props.miner) {
+            let networkHR = props.hashrate
+            if (typeof props.hashrate === "string") {
+                networkHR = parseStringHashrate(props.hashrate)
+            }
+            const hr = parseInt(props.miner.hashrate) * unitConvert(props.miner.hashrate.charAt(props.miner.hashrate.length - 1))
+            const pw = parseInt(props.miner.power)
+            let lowerEC = networkHR / hr * pw
+            return Math.round(lowerEC)
+        }
+        return -1
+    }
+
+    const Annualize = (energy) => {
+        let Wh = energy * 24 * 365 / 1e12;
+        return Wh;
     }
 
     function numberWithCommas(x) {
@@ -33,33 +53,34 @@ const Consumption = (props) => {
         return parseFloat(str) * unitConvert(str.charAt(str.length - 4))
     }
 
-    const calcLower = () => {
-        if (props.miner) {
-            let networkHR = props.hashrate
-            if (typeof props.hashrate === "string") {
-                networkHR = parseStringHashrate(props.hashrate)
-            }
-            const hr = parseInt(props.miner.hashrate) * unitConvert(props.miner.hashrate.charAt(props.miner.hashrate.length - 1))
-            const pw = parseInt(props.miner.power)
-            let lowerEC = networkHR / hr * pw
-            return numberWithCommas(Math.round(lowerEC))
-        }
-        return -1
-    }
-
-    const renderBound = (val) => {
+    const renderBound = (val, unit) => {
+        console.log(val)
         return (
             <span>
-                {val} J/s
+                {numberWithCommas(Math.round(val))} {unit}
+            </span>
+        )
+    }
+
+    const renderAnnualize = (val, unit) => {
+        return (
+            <span>
+                {Math.round(val * 1000) / 1000} {unit}
             </span>
         )
     }
     return (
         <div className="container">
             <br/>
-            <h2 id="Estimation">
-                Energy Consumption: <em>{renderBound(calcLower())} - {renderBound(calcUpper())}</em>
-            </h2>
+            <div id="Estimation">
+                <h2>
+                    Energy Consumption: <em>{renderBound(calcLower() / 1e3, 'kW')} - {renderBound(calcUpper() / 1e3, 'kW')}</em>
+                </h2>
+                <h3 id="annual">
+                    Annualized: {renderAnnualize(Annualize(calcLower()), 'TWh')} - {renderAnnualize(Annualize(calcUpper()), 'TWh')}
+                </h3>
+            </div>
+
             <br/>
         </div>
     )

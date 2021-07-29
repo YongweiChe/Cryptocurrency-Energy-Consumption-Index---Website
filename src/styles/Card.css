@@ -1,8 +1,3 @@
-* {
-}
-body {
-}
-
 .card {
   border: 1px solid black;
   padding: 1em;
@@ -16,5 +11,9 @@ body {
   border: 1px solid goldenrod;
   padding: 1em;
   text-align: center;
-  background-image: linear-gradient(to right, gold, yellow);
+  background-image: linear-gradient(to right, rgb(255, 215, 0), yellow);
+}
+
+#annual {
+  color: #2f4f4f;
 }
