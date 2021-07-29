@@ -108,11 +108,24 @@ const Card = ({code, info, electricity}) => {
 
     const renderTimeline = () => {
         if (showTimeline) {
-            return <Timeline/>
+            return <Timeline
+                        coin={info.coin}
+                        algorithm={info.algorithm}
+                        time={coin.time}
+                        reward={coin.reward}
+                        electricity={electricity}
+                        miner={miners[0]}
+                    />
         }
         else {
             return <span></span>
         }
+    }
+
+    const handleTimeline = () => {
+        setShowTimeline(() => {
+            return !showTimeline;
+        })
     }
 
     return (
@@ -135,7 +148,11 @@ const Card = ({code, info, electricity}) => {
                 electricity={electricity}
                 miner={miners[0]}
             />
-
+            <div className="container-fluid text-center">
+                <button onClick={handleTimeline} className="btn btn-lg" style={{backgroundColor: "gold"}}>{showTimeline ? 'Hide Timeline' : 'Show Timeline'}</button>
+            </div>
+            {renderTimeline()}
+            <br/>
             <p>
                 <span><b>Pools: </b></span>
                 <DisplayPools pools={pools} showAll={expandPool}/>

@@ -1,7 +1,8 @@
 import React from 'react'
 import "../styles/Card.css"
-const Consumption = (props) => {
 
+
+const Consumption = (props) => {
 
     const calcUpper = () => {
         let timeSec = -1;
@@ -30,6 +31,7 @@ const Consumption = (props) => {
         }
         return -1
     }
+
 
     const Annualize = (energy) => {
         let Wh = energy * 24 * 365 / 1e12;
