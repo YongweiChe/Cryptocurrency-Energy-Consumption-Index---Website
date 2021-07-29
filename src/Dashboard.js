@@ -40,8 +40,6 @@ const Dashboard = () => {
                         )
                     }
                     if (info.algorithm.toLowerCase().substring(0,3) !== myCode.algo.toLowerCase().substring(0,3)) {
-                        console.log(info.algorithm)
-                        console.log(codes.find(isCorrect).algo)
                         return (
                             <span></span>
                         )

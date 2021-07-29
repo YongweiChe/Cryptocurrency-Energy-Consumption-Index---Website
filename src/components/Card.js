@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import Timeline from './Timeline'
 import Consumption from './Consumption'
+import DisplayPools from './DisplayPools'
+import DisplayMiners from './DisplayMiners'
 import '../styles/Card.css'
 import axios from 'axios'
 
@@ -8,6 +10,8 @@ const Card = ({code, info, electricity}) => {
     const [coin, setCoin]= useState([])
     const [pools, setPools] = useState([])
     const [miners, setMiners] = useState([])
+    const [expandPool, setExpandPool] = useState(false)
+    const [expandMiner, setExpandMiner] = useState(false)
 
     useEffect(async ()=> {
         const url = 'https://crypto-energy-api.herokuapp.com/coins/' + code
@@ -17,6 +21,23 @@ const Card = ({code, info, electricity}) => {
         setMiners(response.data.miners)
     }, [code])
 
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }   
+
+    const handlePoolClick = e => {
+        e.preventDefault()
+        setExpandPool(() => {
+            return !expandPool
+        })
+    }
+
+    const handleMinerClick = e => {
+        e.preventDefault()
+        setExpandMiner(() => {
+            return !expandMiner
+        })
+    }
 
     return (
         <div className="container card">
@@ -37,22 +58,16 @@ const Card = ({code, info, electricity}) => {
                 price={info.price}
                 electricity={electricity}
                 miner={miners[0]}
-                />
+            />
             <p>
                 <span><b>Pools: </b></span>
-                {pools.map((pool, i) => {
-                    return (
-                        <span key={i}>{pool.url}: <em>{pool.hashrate}</em>, {pool.countries}     |      </span>
-                    )
-                })}
+                <DisplayPools pools={pools} showAll={expandPool}/>
+                <button onClick={handlePoolClick} class="btn">{expandPool ? 'show less' : 'show more'}</button>
             </p>
             <p>
                 <span><b>Miners: </b></span>
-                {miners.map(miner => {
-                    return (
-                        <span>{miner.name}: {miner.hashrate} {miner.power} | </span>
-                    )
-                })}
+                <DisplayMiners miners={miners} showAll={expandMiner}/>
+                <button onClick={handleMinerClick} class="btn">{expandMiner ? 'show less' : 'show more'}</button>
             </p>
             
         </div>

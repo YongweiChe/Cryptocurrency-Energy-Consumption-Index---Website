@@ -4,14 +4,11 @@ const Consumption = (props) => {
 
 
     const calcUpper = () => {
-        if (props.miner) console.log(props)
         let timeSec = -1;
         let parsedRew = -1;
         if (props.time) timeSec = parseFloat(props.time.replace(',',''), 10)
         if (props.reward) parsedRew = parseFloat(props.reward.replace(',',''), 10)
-        console.log(parsedRew)
         if (props.time && props.time.includes("minute")) {
-            console.log("here")
             timeSec = timeSec * 60;
         }
         let profit = props.price *  parsedRew / timeSec;
@@ -40,7 +37,6 @@ const Consumption = (props) => {
         if (props.miner) {
             let networkHR = props.hashrate
             if (typeof props.hashrate === "string") {
-                console.log("found")
                 networkHR = parseStringHashrate(props.hashrate)
             }
             const hr = parseInt(props.miner.hashrate) * unitConvert(props.miner.hashrate.charAt(props.miner.hashrate.length - 1))

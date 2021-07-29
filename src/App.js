@@ -16,18 +16,34 @@ import {
 
 const App = () => {
     const [single, setSingle] = useState('')
-    
+    const [alert, setAlert] = useState(false)
 
     const handleSingle = e => {
         setSingle(e.target.value);
         console.log(e.target.value);
     }
 
-    const handleSubmit = e => {
-        e.preventdefault()
-        setSingle('')
+    const renderAlert = () => {
+        if (alert) {
+        return (
+            <div class="alert alert-warning" role="alert">
+                Please press the "Submit" button instead of enter when searching for coins
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        )
+        }
+        return (
+            <span></span>
+        )
     }
 
+    const handleSubmit = e => {
+        console.log("here")
+        e.preventDefault();
+        setAlert(true)
+    }
 
     return (
     <Router>
@@ -57,7 +73,7 @@ const App = () => {
             </form>
         </div>
     </nav>
-
+        {renderAlert()}
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
