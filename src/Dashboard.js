@@ -34,7 +34,7 @@ const Dashboard = () => {
                         return myapi.code === info.coin
                     }
                     let myCode = codes.find(isCorrect)
-                    if (!myCode.time) {
+                    if (!myCode.time || !myCode.reward) {
                         return (
                             <span></span>
                         )
@@ -48,7 +48,7 @@ const Dashboard = () => {
                     }
                     return (
                         <div>
-                            <Card key={i} code={info.coin} info={info}/>
+                            <Card key={i} code={info.coin} info={info} electricity={0.1} />
                             <br />
                             <br />
                         </div>
