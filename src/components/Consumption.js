@@ -54,7 +54,6 @@ const Consumption = (props) => {
     }
 
     const renderBound = (val, unit) => {
-        console.log(val)
         return (
             <span>
                 {numberWithCommas(Math.round(val))} {unit}

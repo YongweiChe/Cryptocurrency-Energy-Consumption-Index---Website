@@ -45,8 +45,8 @@ const Dashboard = () => {
                         )
                     }
                     return (
-                        <div>
-                            <Card key={i} code={info.coin} info={info} electricity={0.1} />
+                        <div key={i}>
+                            <Card code={info.coin} info={info} electricity={0.1} />
                             <br />
                             <br />
                         </div>
@@ -59,11 +59,9 @@ const Dashboard = () => {
     return (
         <div>
             <br/>
-            <h1 class="text-center">The Cryptocurrency Energy Consumption Index</h1>
+            <h1 className="text-center">The Cryptocurrency Energy Consumption Index</h1>
             <br/>
-            <p>
                 {renderCards()}
-            </p>
         </div>
     )
 }

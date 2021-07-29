@@ -5,6 +5,7 @@ const Timeline = ({coin, algorithm}) => {
     useEffect(async ()=> {
         const url = 'https://api.minerstat.com/v2/coins-history?time=21627252200&coin=' + coin + '&algo=' + algorithm
         const response = await axios.get(url);
+        console.log(response)
     }, [])
     return (
         <div>

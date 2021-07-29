@@ -6,7 +6,7 @@ const DisplayPools = ({pools, showAll}) => {
         return (
             pools.map((pool, i) => {
                 if (!expand && i >= 10) {
-                    return <span></span>
+                    return <span key={i}></span>
                 }
                 return (
                     <span key={i}>{pool.url}: <em>{pool.hashrate}</em>, {pool.countries}     |      </span>

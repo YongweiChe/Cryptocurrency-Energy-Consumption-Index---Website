@@ -6,10 +6,10 @@ const DisplayMiners = ({miners, showAll}) => {
         return (
             miners.map((miner, i) => {
                  if (!expand && i >= 10) {
-                    return <span></span>
+                    return <span key={i}></span>
                 }
                 return (
-                    <span>{miner.name}: {miner.hashrate} {miner.power} | </span>
+                    <span key={i}>{miner.name}: {miner.hashrate} {miner.power} | </span>
                 )
             })
         )
